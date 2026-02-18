@@ -38,8 +38,8 @@ Portfolio/
 
 ### Prerequisites
 
-- [Python](https://www.python.org/downloads/)
-- [Git](https://git-scm.com/downloads)
+- [Python](https://www.python.org/downloads/) - for compiling the code
+- [Git](https://git-scm.com/downloads) - for downloading this project
 
 ### Steps
 
