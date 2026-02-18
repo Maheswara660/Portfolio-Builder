@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Builder</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom Config for Tailwind to match Shadcn/UI feel -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        border: "hsl(var(--border))",
+                        input: "hsl(var(--input))",
+                        ring: "hsl(var(--ring))",
+                        background: "hsl(var(--background))",
+                        foreground: "hsl(var(--foreground))",
+                        primary: {
+                            DEFAULT: "hsl(var(--primary))",
+                            foreground: "hsl(var(--primary-foreground))",
+                        },
+                        secondary: {
+                            DEFAULT: "hsl(var(--secondary))",
+                            foreground: "hsl(var(--secondary-foreground))",
+                        },
+                        muted: {
+                            DEFAULT: "hsl(var(--muted))",
+                            foreground: "hsl(var(--muted-foreground))",
+                        },
+                        accent: {
+                            DEFAULT: "hsl(var(--accent))",
+                            foreground: "hsl(var(--accent-foreground))",
+                        },
+                        sidebar: {
+                            DEFAULT: "hsl(var(--sidebar-background))",
+                            foreground: "hsl(var(--sidebar-foreground))",
+                            primary: "hsl(var(--sidebar-primary))",
+                            'primary-foreground': "hsl(var(--sidebar-primary-foreground))",
+                            accent: "hsl(var(--sidebar-accent))",
+                            'accent-foreground': "hsl(var(--sidebar-accent-foreground))",
+                            border: "hsl(var(--sidebar-border))",
+                            ring: "hsl(var(--sidebar-ring))",
+                        },
+                    },
+                    borderRadius: {
+                        lg: "var(--radius)",
+                        md: "calc(var(--radius) - 2px)",
+                        sm: "calc(var(--radius) - 4px)",
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            /* Tokyo Night Theme */
+            --background: 237 30% 12%;
+            /* #1a1b26 */
+            --foreground: 229 34% 75%;
+            /* #a9b1d6 */
+
+            --card: 237 30% 12%;
+            --card-foreground: 229 34% 75%;
+
+            --popover: 237 30% 12%;
+            --popover-foreground: 229 34% 75%;
+
+            --primary: 221 87% 72%;
+            /* #7aa2f7 */
+            --primary-foreground: 237 30% 12%;
+
+            --secondary: 228 23% 33%;
+            /* #414868 */
+            --secondary-foreground: 229 34% 75%;
+
+            --muted: 228 23% 33%;
+            --muted-foreground: 229 34% 60%;
+
+            --accent: 228 23% 33%;
+            --accent-foreground: 221 87% 72%;
+
+            --destructive: 345 80% 64%;
+            /* #f7768e */
+            --destructive-foreground: 237 30% 12%;
+
+            --border: 228 23% 21%;
+            /* #292e42 */
+            --input: 228 23% 21%;
+            --ring: 221 87% 72%;
+
+            --radius: 0.5rem;
+
+            /* Sidebar matches background in this clean look, or slightly lighter */
+            --sidebar-background: 237 30% 12%;
+            --sidebar-foreground: 229 34% 75%;
+            --sidebar-primary: 221 87% 72%;
+            --sidebar-primary-foreground: 237 30% 12%;
+            --sidebar-accent: 228 23% 33%;
+            --sidebar-accent-foreground: 221 87% 72%;
+            --sidebar-border: 228 23% 21%;
+            --sidebar-ring: 221 87% 72%;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+        }
+
+        /* Hide scrollbars for cleaner UI */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-foreground h-screen flex flex-col overflow-hidden">
+
+    <!-- Top Navbar -->
+    <header
+        class="h-14 border-b border-border bg-sidebar flex items-center justify-between px-6 shrink-0 z-50 transition-colors">
+        <div class="flex items-center gap-2 font-bold text-xl dark:text-foreground">
+            <i data-lucide="file-text" class="text-primary w-6 h-6"></i>
+            <span>Portfolio</span>
+        </div>
+        <div class="flex items-center gap-4">
+
+            <button id="preview-trigger"
+                class="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                <i data-lucide="play" class="w-4 h-4"></i>
+                <span id="preview-status">Preview</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden flex-col bg-background relative">
+        <!-- Main Form Area -->
+        <main class="flex-1 w-full max-w-2xl mx-auto p-6 overflow-y-auto no-scrollbar z-30 pb-24">
+            <div class="space-y-8">
+
+                <!-- Section: Personal Info -->
+                <div id="section-personal" class="form-section">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-bold dark:text-foreground">Personal Info</h2>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none dark:text-foreground">Full Name</label>
+                            <input type="text" name="personal.name"
+                                class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring dark:text-foreground"
+                                placeholder="E.g. John Doe">
+                        </div>
+                        <div class="space-y-2">
+                             <label class="text-sm font-medium leading-none dark:text-foreground">Profile Image</label>
+                             <div class="flex items-center gap-4">
+                                 <div id="image-preview" class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center overflow-hidden border border-input">
+                                     <i data-lucide="user" class="w-8 h-8 text-muted-foreground"></i>
+                                 </div>
+                                 <div class="flex-1">
+                                     <input type="file" id="image-upload" accept="image/*"
+                                         class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring dark:text-foreground">
+                                     <input type="hidden" name="personal.image">
+                                 </div>
+                             </div>
+                         </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none dark:text-foreground">Professional
+                                Title</label>
+                            <input type="text" name="personal.title"
+                                class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring dark:text-foreground"
+                                placeholder="E.g. Full Stack Developer">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none dark:text-foreground">Location</label>
+                            <input type="text" name="personal.location"
+                                class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring dark:text-foreground"
+                                placeholder="E.g. San Francisco, CA">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none dark:text-foreground">Bio / Summary</label>
+                            <textarea name="personal.bio"
+                                class="flex min-h-[120px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring dark:text-foreground"
+                                placeholder="E.g. Passionate developer with 5 years of experience..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Social Links -->
+                <div id="section-social" class="form-section hidden">
+                    <h2 class="text-2xl font-bold mb-6 dark:text-foreground">Social Links</h2>
+                    <div class="space-y-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none dark:text-foreground">GitHub URL</label>
+                            <input type="url" name="social.github"
+                                class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring dark:text-foreground"
+                                placeholder="https://github.com/...">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none dark:text-foreground">LinkedIn URL</label>
+                            <input type="url" name="social.linkedin"
+                                class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring dark:text-foreground"
+                                placeholder="https://linkedin.com/in/...">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none dark:text-foreground">Twitter/X URL</label>
+                            <input type="url" name="social.twitter"
+                                class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring dark:text-foreground"
+                                placeholder="https://x.com/...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Skills -->
+                <div id="section-skills" class="form-section hidden">
+                    <h2 class="text-2xl font-bold mb-6 dark:text-foreground">Skills</h2>
+                    <div id="skills-list" class="space-y-3 mb-6">
+                        <!-- Dynamic Skills Go Here -->
+                    </div>
+                    <button id="add-skill-btn"
+                        class="flex items-center justify-center w-full rounded-md border border-dashed border-input bg-transparent px-3 py-4 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground transition-colors dark:text-foreground">
+                        <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Skill
+                    </button>
+                </div>
+
+                <!-- Section: Projects -->
+                <div id="section-projects" class="form-section hidden">
+                    <h2 class="text-2xl font-bold mb-6 dark:text-foreground">Projects</h2>
+                    <div id="projects-list" class="space-y-6 mb-6">
+                        <!-- Dynamic Projects Go Here -->
+                    </div>
+                    <button id="add-project-btn"
+                        class="flex items-center justify-center w-full rounded-md border border-dashed border-input bg-transparent px-3 py-4 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground transition-colors dark:text-foreground">
+                        <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Project
+                    </button>
+                </div>
+
+                <!-- Section: Experience (New) -->
+                <div id="section-experience" class="form-section hidden">
+                    <h2 class="text-2xl font-bold mb-6 dark:text-foreground">Experience</h2>
+                    <div id="experience-list" class="space-y-6 mb-6">
+                        <!-- Dynamic Experience Go Here -->
+                    </div>
+                    <button id="add-experience-btn"
+                        class="flex items-center justify-center w-full rounded-md border border-dashed border-input bg-transparent px-3 py-4 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground transition-colors dark:text-foreground">
+                        <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Experience
+                    </button>
+                </div>
+
+                <!-- Section: Education (New) -->
+                <div id="section-education" class="form-section hidden">
+                    <h2 class="text-2xl font-bold mb-6 dark:text-foreground">Education</h2>
+                    <div id="education-list" class="space-y-6 mb-6">
+                        <!-- Dynamic Education Go Here -->
+                    </div>
+                    <button id="add-education-btn"
+                        class="flex items-center justify-center w-full rounded-md border border-dashed border-input bg-transparent px-3 py-4 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground transition-colors dark:text-foreground">
+                        <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Education
+                    </button>
+                </div>
+
+                <!-- Section: Contact -->
+                <div id="section-contact" class="form-section hidden">
+                    <h2 class="text-2xl font-bold mb-6 dark:text-foreground">Contact Info</h2>
+                    <div class="space-y-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium leading-none dark:text-foreground">Email Address</label>
+                            <input type="email" name="contact.email"
+                                class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring dark:text-foreground"
+                                placeholder="you@example.com">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inline Navigation Buttons -->
+                <div class="flex items-center justify-between mt-8">
+                    <button id="clear-section-btn"
+                        class="text-destructive hover:bg-destructive/10 px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        Clear
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <button id="prev-btn"
+                            class="px-4 py-2 rounded-md text-sm font-medium border border-input hover:bg-accent hover:text-accent-foreground transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                            Previous
+                        </button>
+                        <button id="next-btn"
+                            class="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                            Next
+                        </button>
+                        <button id="download-btn"
+                            class="hidden bg-green-600 text-white hover:bg-green-700 px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                            Download
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/builder.js"></script>
+    <script>
+        // Init Lucide Icons
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

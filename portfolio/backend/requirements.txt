@@ -1,0 +1,6 @@
+flask
+jinja2
+python-dotenv
+werkzeug
+python-json-logger
+flask-cors

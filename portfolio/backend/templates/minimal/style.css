@@ -1,0 +1,134 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --muted-color: #666666;
+    --accent-color: #000000;
+    --border-color: #eaeaea;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #1a1a1a;
+        --text-color: #ffffff;
+        --muted-color: #a0a0a0;
+        --accent-color: #ffffff;
+        --border-color: #333333;
+    }
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+}
+
+header {
+    margin-bottom: 4rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.03em;
+}
+
+.title {
+    font-size: 1.25rem;
+    color: var(--muted-color);
+    margin: 0 0 0.5rem 0;
+}
+
+.location {
+    font-size: 0.875rem;
+    color: var(--muted-color);
+    margin: 0 0 1.5rem 0;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    text-decoration: none;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+}
+
+.btn:hover {
+    border-color: var(--accent-color);
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+}
+
+section {
+    margin-bottom: 4rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.skill-tag {
+    background: var(--border-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+}
+
+.project-card {
+    margin-bottom: 2rem;
+}
+
+.project-card h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+}
+
+.project-card p {
+    color: var(--muted-color);
+    margin: 0 0 0.75rem 0;
+}
+
+.project-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.project-link:hover {
+    text-decoration: underline;
+}
+
+footer {
+    text-align: center;
+    color: var(--muted-color);
+    font-size: 0.875rem;
+    margin-top: 4rem;
+}
