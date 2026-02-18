@@ -38,8 +38,8 @@ Portfolio/
 
 ### Prerequisites
 
-- [Python 3.x](https://www.python.org/downloads/) installed.
-- [Git](https://git-scm.com/downloads) installed.
+- [Python 3.x](https://www.python.org/downloads/)
+- [Git](https://git-scm.com/downloads)
 
 ### Steps
 
