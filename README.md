@@ -50,11 +50,26 @@ Portfolio/
     ```
 
 2.  **Set up the Virtual Environment:**
+
     Navigate to the project root and create a virtual environment.
-    ```bash
-    python3 -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-    ```
+
+    *   **macOS/Linux:**
+        ```bash
+        python3 -m venv venv
+        source venv/bin/activate
+        ```
+
+    *   **Windows (Command Prompt):**
+        ```cmd
+        python -m venv venv
+        venv\Scripts\activate.bat
+        ```
+
+    *   **Windows (PowerShell):**
+        ```powershell
+        python -m venv venv
+        venv\Scripts\Activate.ps1
+        ```
 
 3.  **Install Dependencies:**
     Navigate to the `backend` directory and install the required packages.
